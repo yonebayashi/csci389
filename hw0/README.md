@@ -39,8 +39,9 @@ a. I picked 10^5 as the number of iterations starting at the smallest size (2^8)
 
 b. I modified the `update_locations.py` file to evaluate the program for 10 consecutive runs and compute the average as the final measurement number. I wanted to see how the program performed on average.
 
-c. ![](graphs/plot-1.png)
-Graph of Python performance
+c. Plot of performance benchmarks for the Python program.
+
+<img src="graphs/plot-1.png" width="80%">
 
 ## Part 2
 
@@ -66,13 +67,13 @@ Size | Iterations | Mean Time Per Coord.
 
 The C++ code runs about 50 times faster than the Python implementation. The graph below compares the running time between the two versions for the same benchmarks.
 
-![](graphs/plot-2.png)
+<img src="graphs/plot-2.png" width="80%">
 
 ## Part 3
 
 The graph below compares the C/C++ implementation using different C types: `float, double, int8_t, int16_t, int32_t, int64_t` for the coordinate and velocity types in terms of performance. `int64_t` has the worst performance, as its running time roughly triples the rest. The other data types have comparable performances.
 
-![](graphs/plot-3.png)
+<img src="graphs/plot-3.png" width="80%">
 
 ## Part 4
 
