@@ -1,4 +1,5 @@
 # HW0: Galaxy Explorers
+**Author**: Hien Nguyen
 
 The code for this homework is stored in `update_locations.py` (Python) and `update_locations.cpp` (C++).
 
@@ -10,12 +11,13 @@ g++ -std=c++17 -o prog update_locations.cpp
 Then run the program:
 
 ```
-./prog
+./prog [size] [iters]
 ```
+where `size` and `iters` are command line arguments that specify the number of objects in space and the number of iterations to simulate the game.
 
 ## Part 1
 
-Size | Iterations | Mean Time Per Coord.
+Size | Iterations | Mean Time Per Coordinate
 -----|------------|--------------------
 2^8 | 100000 | 0.24201684246093752
 2^9 | 50000 | 0.24031535527343756
@@ -39,13 +41,13 @@ a. I picked 10^5 as the number of iterations starting at the smallest size (2^8)
 
 b. I modified the `update_locations.py` file to evaluate the program for 10 consecutive runs and compute the average as the final measurement number. I wanted to see how the program performed on average.
 
-c. Plot of performance benchmarks for the Python program.
+c. Plot of performance benchmarks for the Python program. Overall, the running time (measured by `mean_time_per_coord`) is fairly stable as the object count increases, represented by a rather flat line in the graph.
 
-<img src="graphs/plot-1.png" width="80%">
+<img src="graphs/plot-1.png" width="70%">
 
 ## Part 2
 
-Size | Iterations | Mean Time Per Coord.
+Size | Iterations | Mean Time Per Coordinate
 -----|------------|--------------------
 2^8 | 100000 | 0.00479346
 2^9 | 50000 | 0.0048871
@@ -67,25 +69,29 @@ Size | Iterations | Mean Time Per Coord.
 
 The C++ code runs about 50 times faster than the Python implementation. The graph below compares the running time between the two versions for the same benchmarks.
 
-<img src="graphs/plot-2.png" width="80%">
+<img src="graphs/plot-2.png" width="70%">
 
 ## Part 3
 
-The graph below compares the C/C++ implementation using different C types: `float, double, int8_t, int16_t, int32_t, int64_t` for the coordinate and velocity types in terms of performance. `int64_t` has the worst performance, as its running time roughly triples the rest. The other data types have comparable performances.
+The graph below compares the C/C++ implementation using different C types: `float, double, int8_t, int16_t, int32_t, int64_t` for the coordinate and velocity types in terms of performance. `int64_t` has the worst performance, as its running time nearly triples the rest. The other data types have comparable performances.
 
 <img src="graphs/plot-3.png" width="80%">
 
 ## Part 4
 
-I used the `/usr/bin/time -p` command to measure memory usage of the C++ program for 2^20 objects for 100 iterations across various data types. I recorded the first metric (`real`), which indicates the total time spent executing the script (in seconds). I defined the time a program occupies the memory as the memory usage of that program.
+I ran the `/usr/bin/time -lp` command to measure memory usage of the C++ program for 2^20 objects for 100 iterations across various data types. I used `maximum resident set size` as the metric to measure memory usage, which records maximum amount of memory in use (in kB).
+
+The table below shows the memory usage of the C++ program across different datat types.
 
 Data type | Memory usage (C++)
 ----------|------------
-float | 6.72
-double  | 7.35
-int64_t |  6.93
-int32_t | 6.81
-int16_t | 6.36
-int8_t | 6.44
+float | 25874432
+double  | 51048448
+int64_t | 51060736
+int32_t | 25890816
+int16_t | 13316096
+int8_t | 7028736
 
-The Python program ran for 291.86 seconds which is about 50 times slower than the C++ version. This is consistent with my previous finding using `mean_time_per_coord` as the measurement metric.
+As can be seen from the table, `float` and `double` have the worst memory usage.  
+
+The Python program took up 278249472 kB which is about 5 times greater than C++ using `float` or `double`, and almost 40 times greater using `int8_t`.
